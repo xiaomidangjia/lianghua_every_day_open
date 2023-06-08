@@ -173,7 +173,7 @@ for i in range(3):
         flag += 1
     else:
         flag += 0
-if flag > 0:
+if flag > 0 and len(raw_data) > 153:
     # 说明23小时的延迟，相关性大于0.75是有用的，结合 多空比
     test_df_1 = test_df[test_df.date>test_df['date_23'][len(test_df)-1]]
     test_df_1['new_date'] = pd.to_datetime(test_df_1['date']) + datetime.timedelta(hours=23)
@@ -188,9 +188,14 @@ if flag > 0:
     else:
         logo = 'pre_low_next_high'
     usdt_logo = 1
+elif len(raw_data) <= 153:
+    usdt_logo = 0
+    logo = 'data not all'
+    max_value_time = '2099-12-21'
+    min_value_time = '2099-12-31'
 else:
     usdt_logo = 0
-    logo = 'None'
+    logo = 'no > 0.75'
     max_value_time = '2099-12-21'
     min_value_time = '2099-12-31'
 # 引入永续合约流动性的概念
