@@ -272,6 +272,8 @@ else:
 
 judge_res = pd.DataFrame({'date':date_now,'pingjia':pingjia,'usdt_logo':usdt_logo,'logo':logo,'max_value_time':max_value_time,'min_value_time':min_value_time},index=[0])
 corr_df.rename(columns = {'num':'usdt_logo','corr':'logo'},inplace=True)
+print(corr_df)
+print(judge_res)
 
 judge_res_l = pd.concat([judge_res,corr_df])
 
