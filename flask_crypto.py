@@ -26,9 +26,9 @@ def crypto_pre():
     res_data['date'] = res_data.iloc[:,1]
     res_data['pingjia'] = res_data.iloc[:,2]
     res_data['usdt_logo'] = res_data.iloc[:,3]
-    res_data['logo'] = res_data.iloc[:,8]
-    res_data['max_value_time'] = res_data.iloc[:,9]
-    res_data['min_value_time'] = res_data.iloc[:,10]
+    res_data['logo'] = res_data.iloc[:,4]
+    res_data['max_value_time'] = res_data.iloc[:,5]
+    res_data['min_value_time'] = res_data.iloc[:,6]
     res_data['date'] = pd.to_datetime(res_data['date'])
     #res_data['up_date'] = pd.to_datetime(res_data['up_date'])
     res_data = res_data[res_data.date==pd.to_datetime(date)]
