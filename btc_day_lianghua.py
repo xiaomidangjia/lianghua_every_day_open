@@ -191,13 +191,13 @@ if flag > 0 and len(raw_data) > 153:
 elif len(raw_data) <= 153:
     usdt_logo = 0
     logo = 'data not all'
-    max_value_time = '2099-12-21'
-    min_value_time = '2099-12-31'
+    max_value_time = '2099-12-31 23:59:59'
+    min_value_time = '2099-12-31 23:59:59'
 else:
     usdt_logo = 0
     logo = 'no > 0.75'
-    max_value_time = '2099-12-21'
-    min_value_time = '2099-12-31'
+    max_value_time = '2099-12-31 23:59:59'
+    min_value_time = '2099-12-31 23:59:59'
 # 引入永续合约流动性的概念
 url_address = ['https://api.glassnode.com/v1/metrics/derivatives/futures_liquidated_volume_long_relative',
               'https://api.glassnode.com/v1/metrics/market/price_usd_close']
