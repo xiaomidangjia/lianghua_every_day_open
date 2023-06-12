@@ -30,11 +30,13 @@ def crypto_pre():
     res_data = res_data[res_data.date==pd.to_datetime(date)]
 
     if len(res_data) == 0:
+        value = 'error'
         r_pingjia = 'error'
-    else:   
+    else:
+        value = 'correct'
         r_pingjia = res_data['pingjia'][0]
 
-    res_dict = {'pingjia':r_pingjia}
+    res_dict = {'value':value,'pingjia':r_pingjia}
 
     ans_str = json.dumps(res_dict)
     return ans_str
