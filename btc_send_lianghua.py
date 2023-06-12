@@ -70,7 +70,7 @@ def create_html_table(df, title):
     return html_table
 
 # ======= 正式开始执行
-
+date_now = str(datetime.datetime.utcnow())[0:10]
 #========监控收益=======
 
 # 读取原始数据
