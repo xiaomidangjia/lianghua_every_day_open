@@ -16,8 +16,9 @@ date_now = str(datetime.datetime.utcnow())[0:10]
 # 引入永续合约流动性的概念
 # 引入永续合约流动性的概念
 url_address = ['https://api.glassnode.com/v1/metrics/derivatives/futures_liquidated_volume_long_relative',
-              'https://api.glassnode.com/v1/metrics/market/price_usd_close']
-url_name = ['futures','price']
+              'https://api.glassnode.com/v1/metrics/market/price_usd_close',
+              'https://api.glassnode.com/v1/metrics/signals/btc_risk_index']
+url_name = ['future','price','risk']
 # insert your API key here
 API_KEY = '26BLocpWTcSU7sgqDdKzMHMpJDm'
 data_list = []
@@ -33,8 +34,8 @@ for num in range(len(url_name)):
     #print(ins['o'])
     #print(ins)
     ins['date'] =  ins['t']
-    ins['value'] =  ins['v']
-    ins = ins[['date','value']]
+    ins[url_name[num]] =  ins['v']
+    ins = ins[['date',url_name[num]]]
     data_list.append(ins)
 result_data = data_list[0][['date']]
 for i in range(len(data_list)):
@@ -44,9 +45,7 @@ for i in range(len(data_list)):
 futures_data = result_data[(result_data.date>='2013-01-01')]
 futures_data = futures_data.sort_values(by=['date'])
 futures_data = futures_data.reset_index(drop=True)
-futures_data['future'] = futures_data['value_x']
-futures_data['price'] = futures_data['value_y']
-new_futures_data = futures_data[['date','future','price']]
+new_futures_data = futures_data[['date','future','price','risk']]
 # 读取原始数据
 new_futures_data['next_price'] = new_futures_data['price'].shift(-1)
 flag_1 = []
@@ -58,6 +57,7 @@ for i in range(len(new_futures_data)):
 new_futures_data['flag_1'] = flag_1
 
 ins = new_futures_data
+risk = ins['risk'][len(ins)-1]
 futures_value_1 = ins['future'][len(ins)-1]
 futures_value_2 = ins['future'][len(ins)-2]
 futures_value_3 = ins['future'][len(ins)-3]
@@ -88,5 +88,5 @@ elif futures_value_1 < 0.5:
 else:
     pingjia = 'unknow_reason'
 
-judge_res = pd.DataFrame({'date':date_now,'pingjia':pingjia},index=[0])
+judge_res = pd.DataFrame({'date':date_now,'pingjia':pingjia,'risk':risk},index=[0])
 judge_res.to_csv('res_btc_lianghua.csv')
