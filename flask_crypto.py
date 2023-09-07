@@ -25,6 +25,7 @@ def crypto_pre():
     res_data = pd.DataFrame(p)
     res_data['date'] = res_data.iloc[:,1]
     res_data['pingjia'] = res_data.iloc[:,2]
+    res_data['risk'] = res_data.iloc[:,3]
     res_data['date'] = pd.to_datetime(res_data['date'])
     #res_data['up_date'] = pd.to_datetime(res_data['up_date'])
     res_data = res_data[res_data.date==pd.to_datetime(date)]
@@ -32,11 +33,13 @@ def crypto_pre():
     if len(res_data) == 0:
         value = 'error'
         r_pingjia = 'error'
+        r_risk = 'error'
     else:
         value = 'correct'
         r_pingjia = res_data['pingjia'][0]
+        r_risk = res_data['risk'][0]
 
-    res_dict = {'value':value,'pingjia':r_pingjia}
+    res_dict = {'value':value,'pingjia':r_pingjia,'risk':r_risk}
 
     ans_str = json.dumps(res_dict)
     return ans_str
